@@ -25,7 +25,7 @@ WebMCP 工具的输入规格由 json-render 组件目录驱动，使 Agent 只�
 
 ## 当前状态
 
-Stage 3 已验证。当前仓库包含唯一 AppSpec Store、串行 Command Runtime、CRM/空白模板、真实 json-render 画布、Catalog 驱动属性编辑、显式删除确认、20 步撤销、50 条安全 human/agent 日志和最后有效状态恢复；标准 `document.modelContext` 注册全部 8 个 Builder 工具，并已在真实 Chrome 中跑通读取、新增、更新、移动、删除确认和撤销。Stage 4 正在产品化三分钟 CRM 演示。
+Stage 4 已验证。当前仓库包含唯一 AppSpec Store、串行 Command Runtime、CRM/空白模板、真实 json-render 画布、Catalog 驱动属性编辑、显式删除确认、20 步撤销、50 条安全 human/agent 日志、最后有效状态恢复和确定性 Reset Demo；标准 `document.modelContext` 注册全部 8 个 Builder 工具，并已在真实 Chrome 的三个独立会话中连续跑通完整比赛闭环。Stage 5 正在准备干净 clone、README、许可证和比赛提交制品。
 
 ## 本地运行
 
@@ -60,6 +60,8 @@ pnpm test:webmcp:real
 ## 项目流程
 
 项目采用带阶段门和验证证据的分阶段交付流程。文档地图和阶段规则见 [`docs/README.md`](docs/README.md)。
+
+三分钟 CRM 演示的固定步骤和精确工具输入见 [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md)。
 
 ## 开源协议
 

@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { App } from '../../App'
 import { createCommandRuntime } from '../../core'
 import { crmSpec } from '../../templates'
@@ -108,5 +108,28 @@ describe('human vertical slice', () => {
       await screen.findByRole('button', { name: 'Card pipeline-card' }),
     ).toBeInTheDocument()
     expect(runtime.getSpec()).toEqual(before)
+  })
+
+  it('shows WebMCP loading and registration error states without crashing', async () => {
+    Object.defineProperty(document, 'modelContext', {
+      configurable: true,
+      value: {
+        registerTool: vi.fn(async () => {
+          throw new Error('registration unavailable')
+        }),
+      },
+    })
+    try {
+      render(<App runtime={createCommandRuntime(crmSpec)} />)
+      expect(screen.getByTestId('webmcp-status')).toHaveTextContent(
+        'WebMCP checking',
+      )
+      expect(await screen.findByText('WebMCP error')).toBeInTheDocument()
+      expect(screen.getByTestId('live-canvas')).toHaveTextContent(
+        'Northstar CRM',
+      )
+    } finally {
+      Reflect.deleteProperty(document, 'modelContext')
+    }
   })
 })

@@ -1,6 +1,6 @@
 # 阶段 4：演示产品化
 
-- 状态：`in_progress`
+- 状态：`verified`
 - 权威规格：[`../specs/2026-09-02-webmcp-builder-mvp.md`](../specs/2026-09-02-webmcp-builder-mvp.md)
 - 依赖：Stage 3 `verified`
 - 目标结果：评审无需开发者工具即可在三分钟内理解并稳定看到完整的人机共享编辑闭环。
@@ -20,9 +20,9 @@
 
 ## 入口门
 
-- [ ] Stage 3 的功能、确认、撤销、日志和恢复全部已验证。
-- [ ] MVP 功能冻结；新增能力必须先从等量范围中删减并获得确认。
-- [ ] 选定 1280×720 或更高的录屏基准。
+- [x] Stage 3 的功能、确认、撤销、日志和恢复全部已验证。
+- [x] MVP 功能已冻结；Stage 4 仅增加 Reset Demo、演示脚本、可见状态和验证。
+- [x] 选定并验证 1280×720 录屏基准。
 
 ## 执行门
 
@@ -34,25 +34,25 @@
 
 ## 任务
 
-- [ ] **4.1 固化三分钟 CRM 演示脚本**
+- [x] **4.1 固化三分钟 CRM 演示脚本**
       Spec ref: `MVP 规格 > 3. 比赛演示主路径、AC-13`
       What to build: 在应用内提供 Reset Demo；脚本包含人工 update、Agent describe/add/update/move、删除拒绝、确认删除和撤销。
       Acceptance: 初始数据确定；每一步有可见结果；脚本正常语速不超过 3 分钟；无一步依赖随机生成。
       Verify: `pnpm test:e2e -- --grep "competition demo"`
 
-- [ ] **4.2 打磨可理解的工作台体验**
+- [x] **4.2 打磨可理解的工作台体验**
       Spec ref: `MVP 规格 > AC-14`
       What to build: 明确组件树、画布、属性面板、活动日志标题和选中态；补齐 loading/empty/error/confirmation UI。
       Acceptance: 1280×720 下四区关键内容同时可读；首屏 10 秒内可辨识四区；焦点可见，按钮/字段有可访问名称。
       Verify: `pnpm test:e2e -- --grep "studio clarity|keyboard"`，并按证据模板人工检查。
 
-- [ ] **4.3 建立端到端回归矩阵**
+- [x] **4.3 建立端到端回归矩阵**
       Spec ref: `MVP 规格 > AC-13、AC-15`
       What to build: 覆盖主路径、非法属性、成环移动、拒绝删除、损坏持久化和刷新恢复。
       Acceptance: 每条路径使用稳定 selector 和独立 fixture；不得跳过关键测试；失败时输出可诊断步骤而非仅截图。
       Verify: `pnpm test:e2e`
 
-- [ ] **4.4 连续彩排并清理发布阻断**
+- [x] **4.4 连续彩排并清理发布阻断**
       Spec ref: `MVP 规格 > AC-13～AC-15`
       What to build: 完成至少三次独立新会话彩排，修复阻断、致命控制台错误和不可读布局。
       Acceptance: 3/3 次完整成功，每次 ≤3 分钟；零未处理异常、零白屏、零必须手工改 localStorage 的步骤。
@@ -60,12 +60,12 @@
 
 ## 严格退出门
 
-- [ ] CRM 完整演示 3/3 次成功且每次不超过 3 分钟。
-- [ ] 演示包含真实工具发现/调用、人工修改、日志、拒绝、确认和撤销。
-- [ ] 1280×720 新会话下关键文字可读，首屏和键盘检查通过。
-- [ ] 主路径及 5 类关键失败流 E2E 全绿，无 MVP 关键测试 skip。
-- [ ] lint、typecheck、unit/integration、e2e、build 全部退出码为 0。
-- [ ] 功能冻结后无额外范围，`docs/STATE.md` 已更新并由用户确认进入 Stage 5。
+- [x] CRM 完整演示 3/3 次成功且每次不超过 3 分钟。
+- [x] 演示包含真实工具发现/调用、人工修改、日志、拒绝、确认和撤销。
+- [x] 1280×720 新会话下关键文字可读，首屏和键盘检查通过。
+- [x] 主路径及 5 类关键失败流 E2E 全绿，无 MVP 关键测试 skip。
+- [x] lint、typecheck、unit/integration、e2e、build 全部退出码为 0。
+- [x] 功能冻结后无额外范围，`docs/STATE.md` 已更新；用户已在执行 Prompt 中确认按顺序进入 Stage 5。
 
 ## 证据
 

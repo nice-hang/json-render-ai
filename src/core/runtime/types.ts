@@ -21,6 +21,7 @@ export type RuntimeSnapshot = {
 
 export type CommandRuntime = {
   dispatch: (input: unknown) => Promise<CommandResult>
+  reset: (spec: AppSpec) => Promise<CommandResult>
   getSnapshot: () => RuntimeSnapshot
   getSpec: () => AppSpec
   subscribe: (listener: () => void) => () => void

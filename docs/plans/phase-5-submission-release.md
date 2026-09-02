@@ -1,6 +1,6 @@
 # 阶段 5：比赛交付
 
-- 状态：`draft`
+- 状态：`in_progress`
 - 权威规格：[`../specs/2026-09-02-webmcp-builder-mvp.md`](../specs/2026-09-02-webmcp-builder-mvp.md)
 - 依赖：Stage 4 `verified`；用户授权部署及任何外部发布操作
 - 目标结果：形成可公开访问、可复现、材料完整并已逐项核对官方要求的比赛 MVP 提交包。

@@ -174,6 +174,24 @@ describe('Command Runtime', () => {
     expect(runtime.getSpec()).toEqual(crmSpec)
   })
 
+  it('resets the demo to a deterministic clean session through the Runtime', async () => {
+    const runtime = createCommandRuntime(crmSpec)
+    await runtime.dispatch({
+      type: 'update',
+      source: 'agent',
+      nodeId: 'crm-intro',
+      props: { content: 'Temporary demo state' },
+    })
+    const result = await runtime.reset(crmSpec)
+    expect(result).toMatchObject({ success: true, undoAvailable: false })
+    expect(runtime.getSpec()).toEqual(crmSpec)
+    expect(runtime.getSnapshot()).toMatchObject({
+      revision: 0,
+      historyDepth: 0,
+      activity: [],
+    })
+  })
+
   it('restores 20 mixed committed changes in exact reverse order', async () => {
     const runtime = createCommandRuntime(crmSpec)
     const initial = structuredClone(runtime.getSpec())

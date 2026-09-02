@@ -602,18 +602,45 @@ export function createCommandRuntime(initialSpec: AppSpec): CommandRuntime {
     return result
   }
 
+  const reset = async (spec: AppSpec): Promise<CommandResult> => {
+    const id = commandId()
+    const validation = validateAppSpec(spec)
+    if (!validation.success)
+      return failure(
+        id,
+        'Demo reset AppSpec is invalid',
+        validation.errors,
+        history.length > 0,
+      )
+    const current = store.get()
+    store.commit(validation.data)
+    history.splice(0)
+    pendingConfirmations.clear()
+    activity = []
+    revision = 0
+    const result: CommandResult = {
+      success: true,
+      commandId: id,
+      changedNodeIds: changedIds(current, validation.data),
+      message: 'Demo workspace reset',
+      undoAvailable: false,
+    }
+    publish()
+    return result
+  }
+
+  const enqueue = (task: () => Promise<CommandResult>) => {
+    const pending = queue.then(task, task)
+    queue = pending.then(
+      () => undefined,
+      () => undefined,
+    )
+    return pending
+  }
+
   return {
-    dispatch: (input) => {
-      const pending = queue.then(
-        () => execute(input),
-        () => execute(input),
-      )
-      queue = pending.then(
-        () => undefined,
-        () => undefined,
-      )
-      return pending
-    },
+    dispatch: (input) => enqueue(() => execute(input)),
+    reset: (spec) => enqueue(() => reset(spec)),
     getSnapshot: () => snapshot,
     getSpec: () => store.get(),
     subscribe: (listener) => {

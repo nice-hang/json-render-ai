@@ -3,6 +3,7 @@ import { JsonRenderCanvas } from '../../adapters/json-render/renderer'
 import { registerWebMcpTools } from '../../adapters/webmcp/tools'
 import type { AppRecovery } from '../../app-runtime'
 import type { CommandRuntime } from '../../core'
+import { crmSpec } from '../../templates'
 import { ActivityLog } from './ActivityLog'
 import { ComponentTree } from './ComponentTree'
 import { Inspector } from './Inspector'
@@ -66,6 +67,10 @@ export function Studio({
     selectNode(runtime.getSpec().rootId)
     setRecoveryIssue(undefined)
   }
+  const resetDemo = async () => {
+    const result = await runtime.reset(crmSpec)
+    if (result.success) selectNode(crmSpec.rootId)
+  }
   return (
     <div className="studio-shell">
       <header className="studio-header">
@@ -78,6 +83,13 @@ export function Studio({
         </div>
         <div className="runtime-status">
           <span>Revision {snapshot.revision}</span>
+          <button
+            type="button"
+            className="header-action"
+            onClick={() => void resetDemo()}
+          >
+            Reset demo
+          </button>
           <button
             type="button"
             className="header-action"

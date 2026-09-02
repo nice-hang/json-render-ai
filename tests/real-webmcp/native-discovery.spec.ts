@@ -38,16 +38,14 @@ async function callNativeTool(
   )
 }
 
-test('real Chrome discovers and executes the complete shared editing flow', async ({
-  page,
-  browser,
-}) => {
+async function runCompetitionDemo(page: Page, rehearsal: number) {
+  const started = Date.now()
   const fatalErrors: string[] = []
   page.on('pageerror', (error) => fatalErrors.push(error.message))
   page.on('console', (message) => {
     if (message.type() === 'error') fatalErrors.push(message.text())
   })
-  await page.goto('/')
+  await page.goto('http://127.0.0.1:4173/')
   await expect(page.getByTestId('webmcp-status')).toHaveText(
     'WebMCP registered',
   )
@@ -65,6 +63,10 @@ test('real Chrome discovers and executes the complete shared editing flow', asyn
     expect(tool.description.length).toBeGreaterThan(20)
     expect(tool.inputSchema).toBeDefined()
   }
+
+  await page.getByRole('button', { name: 'Reset demo' }).click()
+  await expect(page.getByText('Revision 0')).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Undo (0)' })).toBeDisabled()
 
   await page.getByRole('button', { name: 'Text crm-intro' }).click()
   await page
@@ -121,6 +123,14 @@ test('real Chrome discovers and executes the complete shared editing flow', asyn
     ).children[0],
   ).toBe(agentNodeId)
 
+  await page.getByRole('button', { name: `Metric ${agentNodeId}` }).click()
+  await page.getByRole('button', { name: 'Delete' }).click()
+  await expect(page.getByRole('alertdialog')).toContainText('1 component')
+  await page.getByRole('button', { name: 'Cancel' }).click()
+  await expect(
+    page.getByTestId('live-canvas').getByText('Agent forecast'),
+  ).toBeVisible()
+
   const preview = await callNativeTool(page, 'remove_component', {
     nodeId: agentNodeId,
   })
@@ -153,5 +163,28 @@ test('real Chrome discovers and executes the complete shared editing flow', asyn
   await expect(page.getByLabel('Command activity')).toContainText('human')
   await expect(page.getByLabel('Command activity')).toContainText('agent')
   expect(fatalErrors).toEqual([])
+  const elapsedMs = Date.now() - started
+  expect(elapsedMs).toBeLessThan(180_000)
+  console.log(`REHEARSAL ${rehearsal}: ${elapsedMs}ms, passed`)
+  return elapsedMs
+}
+
+test('competition demo succeeds 3 consecutive times through native WebMCP', async ({
+  browser,
+}) => {
   expect(browser.browserType().name()).toBe('chromium')
+  const durations: number[] = []
+  for (let rehearsal = 1; rehearsal <= 3; rehearsal += 1) {
+    const context = await browser.newContext({
+      viewport: { width: 1280, height: 720 },
+    })
+    try {
+      durations.push(
+        await runCompetitionDemo(await context.newPage(), rehearsal),
+      )
+    } finally {
+      await context.close()
+    }
+  }
+  expect(durations).toHaveLength(3)
 })

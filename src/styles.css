@@ -29,10 +29,16 @@ textarea {
 button {
   color: inherit;
 }
+:focus-visible {
+  outline: 3px solid #4bbf70;
+  outline-offset: 2px;
+}
 .studio-shell {
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   background: #e8ede9;
 }
 .studio-header {
