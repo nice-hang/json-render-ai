@@ -82,7 +82,7 @@ https://github.com/nice-hang/json-render-ai
 
 ## Demo Video
 
-**TODO — record the prepared `docs/DEMO_SCRIPT.md` flow with audio, keep it under three minutes, upload it publicly to YouTube, and verify it logged out. Publication requires final authorization.**
+The private local handoff contains a narrated 1280×720 MP4 at `demo/json-render-ai-webmcp-demo.mp4`. It runs for 2 minutes 10 seconds and shows the real native WebMCP flow. A public YouTube upload and logged-out public-video check remain intentionally unexecuted and require separate authorization.
 
 ## Screenshot Shot List
 
@@ -99,6 +99,7 @@ All three are generated reproducibly with `pnpm capture:screenshots` in a native
 - Local quality gates: Stage 0–4 and the Stage 5 clean-clone gate passed, including 48 unit/integration tests, 10 ordinary E2E tests, three native WebMCP rehearsals, and production build.
 - Native demo: three consecutive independent local Chrome runs passed with zero page/console errors.
 - Official deadline checked on 2026-09-02: September 3, 2026 at 1:00 p.m. Pacific Time.
+- Local video: narrated 1280×720 MP4 prepared and verified in the private handoff.
 - External gaps: public live URL and public YouTube URL.
 - Human gates: entrant eligibility/residence, Devpost registration, ownership/support declarations, official-rule agreement, final material review, deployment, publication, and submit authorization.
 
