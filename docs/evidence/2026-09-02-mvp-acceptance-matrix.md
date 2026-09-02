@@ -26,7 +26,7 @@
 | AC-15 | `passed`                | Both the candidate worktree and public clean clone pass format, lint, typecheck, 48 unit/integration tests, 10 E2E tests, three real WebMCP rehearsals, and production build with no skipped critical tests. See [Stage 5 evidence](2026-09-02-phase-5-verification.md).                                      |
 | AC-16 | `blocked_authorization` | The static production build and direct production-URL native WebMCP harness pass locally, but no public HTTPS deployment has been authorized. A logged-out production session therefore cannot yet be evidenced.                                                                                              |
 | AC-17 | `blocked_by_AC-16`      | The public repository, English README, architecture, install/test/browser/demo/limits sections, MIT license, scans, and images are complete. The required verified deployment address remains intentionally absent until AC-16.                                                                               |
-| AC-18 | `blocked_authorization` | The public repo, English description, three screenshots, script, and official-rule checklist are prepared. A production URL, public narrated video, Devpost registration/eligibility confirmation, and final human approval remain outstanding.                                                               |
+| AC-18 | `blocked_authorization` | The public repo, English description, three screenshots, official-rule checklist, and verified local narrated MP4 are prepared. A production URL, public video, Devpost registration/eligibility confirmation, and final human approval remain outstanding.                                                   |
 
 ## Remaining closure sequence
 

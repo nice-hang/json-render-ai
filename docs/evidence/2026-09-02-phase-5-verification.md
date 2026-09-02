@@ -12,6 +12,7 @@
 - English [`../../devpost-submission.md`](../../devpost-submission.md) draft with no invented public URLs or submission claims.
 - Three truthful native-Chrome screenshots in [`../assets/`](../assets/): workspace overview, rejected deletion confirmation, and shared human/Agent Activity.
 - Deterministic [`../DEMO_SCRIPT.md`](../DEMO_SCRIPT.md) for an under-three-minute narrated flow.
+- Verified private 1280×720 narrated MP4 and reproducible local ZIP; see [local delivery evidence](2026-09-02-local-delivery-verification.md).
 - Dated [official submission checklist](2026-09-02-submission-checklist.md) and [AC-01～AC-18 matrix](2026-09-02-mvp-acceptance-matrix.md).
 
 ## Clean public-clone gate (G5.1)
@@ -101,7 +102,7 @@ The local timezone is not evidence of residence. Entrant age, eligible residence
 | G5.3 official checklist           | `partial`                 | Official sources reviewed; entrant confirmations, live URL, and video remain outstanding                |
 | G5.4 authorized external writes   | `not_yet_authorized`      | Pushes are authorized and complete; deployment, public video, and Devpost submission are not authorized |
 | AC-01～AC-18                      | `15/18 passed`            | AC-16～AC-18 are not marked passed; see the final matrix                                                |
-| Public narrated video             | `blocked_authorization`   | Script and visuals exist; recording, review, and YouTube publication remain                             |
+| Public narrated video             | `prepared_local`          | A verified 130.48-second narrated MP4 exists locally; YouTube publication remains unauthorized          |
 | Devpost registration/final submit | `needs_user_confirmation` | No authenticated Devpost state or final approval has been provided                                      |
 
 Stage 5 is deliberately not marked `verified`. No application was deployed, no video was published, and nothing was submitted to Devpost while those actions lacked explicit authorization.

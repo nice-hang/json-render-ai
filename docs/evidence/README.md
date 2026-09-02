@@ -8,6 +8,8 @@
 YYYY-MM-DD-phase-<编号>-verification.md
 ```
 
+不属于单一阶段退出门的交付级证据可使用 `YYYY-MM-DD-<主题>-verification.md`，例如本地私有交付包复验。
+
 应记录：
 
 - Commit 或工作树固定点
