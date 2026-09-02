@@ -1,5 +1,9 @@
 import { z } from 'zod'
-import { componentTypes, type ValidationIssue } from '../spec/types'
+import {
+  componentTypes,
+  type AppSpec,
+  type ValidationIssue,
+} from '../spec/types'
 
 const sourceSchema = z.enum(['human', 'agent'])
 
@@ -41,6 +45,14 @@ export const commandSchema = z.discriminatedUnion('type', [
     })
     .strict(),
   z.object({ type: z.literal('undo'), source: sourceSchema }).strict(),
+  z
+    .object({
+      type: z.literal('restore'),
+      source: z.literal('human'),
+      spec: z.custom<AppSpec>(),
+      template: z.enum(['crm', 'blank']),
+    })
+    .strict(),
 ])
 
 export type Command = z.infer<typeof commandSchema>

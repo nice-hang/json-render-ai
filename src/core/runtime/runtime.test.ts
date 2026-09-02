@@ -146,6 +146,85 @@ describe('Command Runtime', () => {
     })
   })
 
+  it('restores a validated built-in template through the Runtime', async () => {
+    const runtime = createCommandRuntime(crmSpec)
+    const result = await runtime.dispatch({
+      type: 'restore',
+      source: 'human',
+      template: 'blank',
+      spec: {
+        version: 1,
+        rootId: 'blank-page',
+        nodes: {
+          'blank-page': {
+            id: 'blank-page',
+            type: 'Page',
+            props: { title: 'Blank app' },
+            children: [],
+          },
+        },
+      },
+    })
+    expect(result.success).toBe(true)
+    expect(runtime.getSpec().rootId).toBe('blank-page')
+    expect(runtime.getSnapshot().historyDepth).toBe(1)
+    expect(
+      (await runtime.dispatch({ type: 'undo', source: 'human' })).success,
+    ).toBe(true)
+    expect(runtime.getSpec()).toEqual(crmSpec)
+  })
+
+  it('restores 20 mixed committed changes in exact reverse order', async () => {
+    const runtime = createCommandRuntime(crmSpec)
+    const initial = structuredClone(runtime.getSpec())
+    for (let index = 0; index < 20; index += 1) {
+      const result = await runtime.dispatch({
+        type: 'update',
+        source: index % 2 ? 'agent' : 'human',
+        nodeId: 'crm-intro',
+        props: { content: `Mixed change ${index + 1}` },
+      })
+      expect(result.success).toBe(true)
+    }
+    expect(runtime.getSnapshot().historyDepth).toBe(20)
+    for (let index = 0; index < 20; index += 1) {
+      expect(
+        (await runtime.dispatch({ type: 'undo', source: 'human' })).success,
+      ).toBe(true)
+    }
+    expect(runtime.getSpec()).toEqual(initial)
+    expect(runtime.getSnapshot().historyDepth).toBe(0)
+  })
+
+  it('caps activity at 50 safe summaries and preserves invalid Agent source', async () => {
+    const runtime = createCommandRuntime(crmSpec)
+    for (let index = 0; index < 55; index += 1) {
+      await runtime.dispatch({
+        type: 'update',
+        source: index % 2 ? 'agent' : 'human',
+        nodeId: 'crm-intro',
+        props: { content: `cookie=secret-${index}` },
+      })
+    }
+    await runtime.dispatch({
+      type: 'update',
+      source: 'agent',
+      nodeId: 'token=secret-credential',
+      props: { content: 42 },
+    })
+    const snapshot = runtime.getSnapshot()
+    expect(snapshot.activity).toHaveLength(50)
+    expect(snapshot.activity[0]).toMatchObject({
+      source: 'agent',
+      status: 'failed',
+    })
+    expect(JSON.stringify(snapshot.activity)).not.toContain('secret-')
+    expect(snapshot.historyDepth).toBe(20)
+    expect(
+      snapshot.activity.every((entry) => entry.summary.length <= 160),
+    ).toBe(true)
+  })
+
   it('moves a node while preserving one parent and supports undo', async () => {
     const runtime = createCommandRuntime(crmSpec)
     const before = structuredClone(runtime.getSpec())

@@ -70,7 +70,7 @@ test('real Chrome discovers and executes the complete shared editing flow', asyn
   await page
     .getByRole('textbox', { name: 'Content' })
     .fill('Human prepared this CRM for the agent.')
-  await page.getByRole('button', { name: 'Save text' }).click()
+  await page.getByRole('button', { name: 'Save properties' }).click()
   await expect(
     page
       .getByTestId('live-canvas')

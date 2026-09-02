@@ -7,9 +7,9 @@
 - 更新时间：2026-09-02
 - 项目：`json-render-ai`
 - 方向：基于 json-render 的低代码工作台，通过 WebMCP 暴露自身编辑能力
-- 活跃阶段：Stage 3 — 人工控制与恢复
+- 活跃阶段：Stage 4 — 演示产品化
 - 阶段状态：`in_progress`
-- 最近已验证里程碑：Stage 2 八工具已由真实 Chrome 原生发现和调用；人机共享 add/update/move/remove/undo 闭环通过
+- 最近已验证里程碑：Stage 3 Catalog 属性面板、显式删除确认、20 步撤销、50 条安全日志和最后有效状态恢复通过
 
 ## 已确认决策
 
@@ -23,6 +23,7 @@
 - 固定 `@json-render/core`/`react` 0.20.0；WebMCP 使用标准 `document.modelContext` 和 AbortSignal 注销。
 - Store 快照冻结且仅由串行 Command Runtime 提交；CRM/空白模板有效，CRM 覆盖全部 8 种组件。
 - 8 个 Builder 工具均通过标准 `document.modelContext` 注册；真实 Chrome 已完成读、新增、更新、移动、删除确认和撤销。
+- Undo 历史固定为 20 个已提交前态，Activity 固定为 50 条脱敏截断摘要；二者不跨刷新，最后有效 AppSpec 跨刷新恢复。
 
 ## 待确认决策
 
@@ -31,8 +32,8 @@
 ## 阻塞项
 
 - 当前没有已记录的实现阻塞。
-- 当前没有 Stage 3 实现阻塞。
+- 当前没有 Stage 4 实现阻塞。
 
 ## 下一步
 
-补齐人工属性编辑、显式删除确认/拒绝、20 步撤销、50 条审计上限和 localStorage 最后有效状态恢复。
+围绕三分钟 CRM 故事补齐演示引导、可理解失败态、1280×720 视觉门和连续 3 次完整演示计时证据。

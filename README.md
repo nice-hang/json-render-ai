@@ -25,7 +25,7 @@ WebMCP 工具的输入规格由 json-render 组件目录驱动，使 Agent 只�
 
 ## 当前状态
 
-Stage 2 已验证。当前仓库包含唯一 AppSpec Store、串行 Command Runtime、CRM/空白模板、真实 json-render 画布、组件树、最小属性编辑和 human/agent 活动日志；标准 `document.modelContext` 注册全部 8 个 Builder 工具，并已在真实 Chrome 中跑通读取、新增、更新、移动、删除确认和撤销。Stage 3 正在加固人工控制与刷新恢复。
+Stage 3 已验证。当前仓库包含唯一 AppSpec Store、串行 Command Runtime、CRM/空白模板、真实 json-render 画布、Catalog 驱动属性编辑、显式删除确认、20 步撤销、50 条安全 human/agent 日志和最后有效状态恢复；标准 `document.modelContext` 注册全部 8 个 Builder 工具，并已在真实 Chrome 中跑通读取、新增、更新、移动、删除确认和撤销。Stage 4 正在产品化三分钟 CRM 演示。
 
 ## 本地运行
 

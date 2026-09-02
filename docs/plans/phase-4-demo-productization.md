@@ -1,6 +1,6 @@
 # 阶段 4：演示产品化
 
-- 状态：`draft`
+- 状态：`in_progress`
 - 权威规格：[`../specs/2026-09-02-webmcp-builder-mvp.md`](../specs/2026-09-02-webmcp-builder-mvp.md)
 - 依赖：Stage 3 `verified`
 - 目标结果：评审无需开发者工具即可在三分钟内理解并稳定看到完整的人机共享编辑闭环。

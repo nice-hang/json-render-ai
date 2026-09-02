@@ -1,15 +1,43 @@
 import { useEffect, useState } from 'react'
 import { JsonRenderCanvas } from '../../adapters/json-render/renderer'
 import { registerWebMcpTools } from '../../adapters/webmcp/tools'
+import type { AppRecovery } from '../../app-runtime'
 import type { CommandRuntime } from '../../core'
 import { ActivityLog } from './ActivityLog'
 import { ComponentTree } from './ComponentTree'
 import { Inspector } from './Inspector'
 import { useRuntime } from './use-runtime'
 
-export function Studio({ runtime }: { runtime: CommandRuntime }) {
+function selectionTrail(runtime: CommandRuntime, selectedId: string): string[] {
+  const spec = runtime.getSpec()
+  const trail = [selectedId]
+  let current = selectedId
+  while (current !== spec.rootId) {
+    const parent = Object.values(spec.nodes).find((node) =>
+      node.children?.includes(current),
+    )
+    if (!parent) break
+    trail.push(parent.id)
+    current = parent.id
+  }
+  return trail
+}
+
+export function Studio({
+  runtime,
+  recovery,
+  onRecover,
+}: {
+  runtime: CommandRuntime
+  recovery?: AppRecovery
+  onRecover?: (template: 'crm' | 'blank') => Promise<unknown>
+}) {
   const snapshot = useRuntime(runtime)
   const [selectedId, setSelectedId] = useState(snapshot.spec.rootId)
+  const [selectionCandidates, setSelectionCandidates] = useState([
+    snapshot.spec.rootId,
+  ])
+  const [recoveryIssue, setRecoveryIssue] = useState(recovery)
   const [webMcpState, setWebMcpState] = useState<
     'checking' | 'registered' | 'unavailable' | 'error'
   >(() => (document.modelContext ? 'checking' : 'unavailable'))
@@ -24,10 +52,20 @@ export function Studio({ runtime }: { runtime: CommandRuntime }) {
     return registration.dispose
   }, [runtime])
 
-  const effectiveSelectedId = snapshot.spec.nodes[selectedId]
-    ? selectedId
-    : snapshot.spec.rootId
+  const effectiveSelectedId =
+    (snapshot.spec.nodes[selectedId] ? selectedId : undefined) ??
+    selectionCandidates.find((id) => snapshot.spec.nodes[id]) ??
+    snapshot.spec.rootId
   const selectedNode = snapshot.spec.nodes[effectiveSelectedId]
+  const selectNode = (id: string) => {
+    setSelectedId(id)
+    setSelectionCandidates(selectionTrail(runtime, id))
+  }
+  const recover = async (template: 'crm' | 'blank') => {
+    await onRecover?.(template)
+    selectNode(runtime.getSpec().rootId)
+    setRecoveryIssue(undefined)
+  }
   return (
     <div className="studio-shell">
       <header className="studio-header">
@@ -40,6 +78,16 @@ export function Studio({ runtime }: { runtime: CommandRuntime }) {
         </div>
         <div className="runtime-status">
           <span>Revision {snapshot.revision}</span>
+          <button
+            type="button"
+            className="header-action"
+            disabled={!snapshot.historyDepth}
+            onClick={() =>
+              void runtime.dispatch({ type: 'undo', source: 'human' })
+            }
+          >
+            Undo ({snapshot.historyDepth})
+          </button>
           <span
             data-testid="webmcp-status"
             className={`protocol-state protocol-state--${webMcpState}`}
@@ -48,6 +96,22 @@ export function Studio({ runtime }: { runtime: CommandRuntime }) {
           </span>
         </div>
       </header>
+      {recoveryIssue ? (
+        <aside className="recovery-banner" role="alert">
+          <div>
+            <strong>Saved workspace needs recovery</strong>
+            <span>{recoveryIssue.message}</span>
+          </div>
+          <div>
+            <button type="button" onClick={() => void recover('crm')}>
+              Restore CRM
+            </button>
+            <button type="button" onClick={() => void recover('blank')}>
+              Restore blank
+            </button>
+          </div>
+        </aside>
+      ) : null}
       <div className="studio-grid">
         <section
           className="studio-panel tree-panel"
@@ -65,7 +129,7 @@ export function Studio({ runtime }: { runtime: CommandRuntime }) {
           <ComponentTree
             spec={snapshot.spec}
             selectedId={effectiveSelectedId}
-            onSelect={setSelectedId}
+            onSelect={selectNode}
           />
         </section>
         <section
@@ -99,7 +163,7 @@ export function Studio({ runtime }: { runtime: CommandRuntime }) {
             key={`${selectedNode.id}:${snapshot.revision}`}
             node={selectedNode}
             runtime={runtime}
-            onSelect={setSelectedId}
+            onSelect={selectNode}
           />
         </section>
         <section className="studio-panel log-panel" aria-labelledby="log-title">

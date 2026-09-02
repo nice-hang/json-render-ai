@@ -19,7 +19,7 @@ test('human vertical slice updates tree and real canvas within 500ms', async ({
     .getByRole('textbox', { name: 'Content' })
     .fill('Human updated the CRM overview.')
   const updateStarted = Date.now()
-  await page.getByRole('button', { name: 'Save text' }).click()
+  await page.getByRole('button', { name: 'Save properties' }).click()
   await expect(
     page
       .getByTestId('live-canvas')

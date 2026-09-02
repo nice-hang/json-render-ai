@@ -1,12 +1,19 @@
 import { z } from 'zod'
 import type { ComponentType } from '../spec/types'
 
-type FieldKind = 'text' | 'number' | 'select'
+type FieldKind = 'text' | 'number' | 'select' | 'text-list'
+
+export type CatalogField = {
+  name: string
+  label: string
+  kind: FieldKind
+  options?: readonly string[]
+}
 
 export type CatalogEntry = {
   propsSchema: z.ZodType<Record<string, unknown>>
   defaults: Record<string, unknown>
-  fields: Array<{ name: string; label: string; kind: FieldKind }>
+  fields: CatalogField[]
   allowedChildren: readonly ComponentType[]
 }
 
@@ -53,7 +60,12 @@ export const catalog = {
       .strict(),
     defaults: { direction: 'column', gap: 16 },
     fields: [
-      { name: 'direction', label: 'Direction', kind: 'select' },
+      {
+        name: 'direction',
+        label: 'Direction',
+        kind: 'select',
+        options: ['row', 'column'],
+      },
       { name: 'gap', label: 'Gap', kind: 'number' },
     ],
     allowedChildren: stackChildren,
@@ -74,7 +86,12 @@ export const catalog = {
     defaults: { content: 'Text', tone: 'default' },
     fields: [
       { name: 'content', label: 'Content', kind: 'text' },
-      { name: 'tone', label: 'Tone', kind: 'select' },
+      {
+        name: 'tone',
+        label: 'Tone',
+        kind: 'select',
+        options: ['default', 'muted', 'accent'],
+      },
     ],
     allowedChildren: [],
   },
@@ -99,7 +116,12 @@ export const catalog = {
     defaults: { label: 'Button', variant: 'primary' },
     fields: [
       { name: 'label', label: 'Label', kind: 'text' },
-      { name: 'variant', label: 'Variant', kind: 'select' },
+      {
+        name: 'variant',
+        label: 'Variant',
+        kind: 'select',
+        options: ['primary', 'secondary'],
+      },
     ],
     allowedChildren: [],
   },
@@ -122,7 +144,10 @@ export const catalog = {
       })
       .strict(),
     defaults: { label: 'Select', options: ['Option'] },
-    fields: [{ name: 'label', label: 'Label', kind: 'text' }],
+    fields: [
+      { name: 'label', label: 'Label', kind: 'text' },
+      { name: 'options', label: 'Options', kind: 'text-list' },
+    ],
     allowedChildren: [],
   },
 } satisfies Record<ComponentType, CatalogEntry>

@@ -9,6 +9,10 @@ import { validateAppSpec } from '../spec/schema'
 import { createInternalAppSpecStore } from '../store/internal'
 import type { ActivityEntry, CommandRuntime, RuntimeSnapshot } from './types'
 
+const MAX_HISTORY = 20
+const MAX_ACTIVITY = 50
+const MAX_SUMMARY_LENGTH = 160
+
 function commandId(): string {
   return (
     globalThis.crypto?.randomUUID?.() ??
@@ -53,7 +57,30 @@ function summarize(command: Command): string {
       return `Remove ${command.nodeId}`
     case 'undo':
       return 'Undo last committed change'
+    case 'restore':
+      return `Restore ${command.template} template`
   }
+}
+
+function safeSummary(value: string): string {
+  const redacted = value.replace(
+    /(authorization|cookie|token|signature)(\s*[:=]\s*)[^\s,]+/gi,
+    '$1$2[redacted]',
+  )
+  return redacted.length > MAX_SUMMARY_LENGTH
+    ? `${redacted.slice(0, MAX_SUMMARY_LENGTH - 1)}…`
+    : redacted
+}
+
+function sourceFromInput(input: unknown): 'human' | 'agent' {
+  if (
+    typeof input === 'object' &&
+    input !== null &&
+    'source' in input &&
+    input.source === 'agent'
+  )
+    return 'agent'
+  return 'human'
 }
 
 function findParentId(spec: AppSpec, nodeId: string): string | undefined {
@@ -136,7 +163,8 @@ export function createCommandRuntime(initialSpec: AppSpec): CommandRuntime {
       message: result.message,
       changedNodeIds: result.changedNodeIds,
     }
-    activity = [entry, ...activity].slice(0, 50)
+    entry.summary = safeSummary(entry.summary)
+    activity = [entry, ...activity].slice(0, MAX_ACTIVITY)
   }
 
   const execute = async (input: unknown): Promise<CommandResult> => {
@@ -154,7 +182,12 @@ export function createCommandRuntime(initialSpec: AppSpec): CommandRuntime {
         errors,
         history.length > 0,
       )
-      record('human', 'invalid', result, 'Reject invalid command input')
+      record(
+        sourceFromInput(input),
+        'invalid',
+        result,
+        'Reject invalid command input',
+      )
       publish()
       return result
     }
@@ -274,11 +307,16 @@ export function createCommandRuntime(initialSpec: AppSpec): CommandRuntime {
       return result
     }
 
-    const draft = structuredClone(current)
+    const draft =
+      command.type === 'restore'
+        ? structuredClone(command.spec)
+        : structuredClone(current)
     let changedNodeIds: string[] = []
     let earlyFailure: CommandResult | undefined
 
-    if (command.type === 'add') {
+    if (command.type === 'restore') {
+      changedNodeIds = changedIds(current, draft)
+    } else if (command.type === 'add') {
       const parent = draft.nodes[command.parentId]
       if (!parent) {
         earlyFailure = failure(
@@ -548,6 +586,7 @@ export function createCommandRuntime(initialSpec: AppSpec): CommandRuntime {
     }
 
     history.push(current)
+    if (history.length > MAX_HISTORY) history.shift()
     store.commit(validation.data)
     revision += 1
     pendingConfirmations.clear()

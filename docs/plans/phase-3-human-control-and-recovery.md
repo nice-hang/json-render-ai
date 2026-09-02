@@ -1,6 +1,6 @@
 # 阶段 3：人工控制与恢复
 
-- 状态：`in_progress`
+- 状态：`verified`
 - 权威规格：[`../specs/2026-09-02-webmcp-builder-mvp.md`](../specs/2026-09-02-webmcp-builder-mvp.md)
 - 依赖：Stage 2 `verified`
 - 目标结果：用户能理解每次人/Agent 修改，拒绝破坏性操作，并从错误、撤销和刷新中恢复到已知有效状态。
@@ -20,9 +20,9 @@
 
 ## 入口门
 
-- [ ] Stage 2 的 8 工具真实发现和写操作证据通过。
-- [ ] CommandResult、确认令牌、撤销快照契约稳定。
-- [ ] 已定义日志脱敏与截断规则。
+- [x] Stage 2 的 8 工具真实发现和写操作证据通过。
+- [x] CommandResult、确认令牌、撤销快照契约稳定。
+- [x] 日志只记录无值摘要，凭据样式脱敏，摘要最多 160 字符，Activity 最多 50 条。
 
 ## 执行门
 
@@ -34,25 +34,25 @@
 
 ## 任务
 
-- [ ] **3.1 完成 Catalog 驱动属性面板**
+- [x] **3.1 完成 Catalog 驱动属性面板**
       Spec ref: `MVP 规格 > AC-02～AC-04`
       What to build: 按选中组件类型显示允许字段、默认值和错误；所有提交走 Command Runtime。
       Acceptance: 8 种组件均可查看属性；可编辑属性正确更新；非法输入就地报错且画布保持原值。
       Verify: `pnpm test -- src/features/inspector && pnpm test:e2e -- --grep "property inspector"`
 
-- [ ] **3.2 实现明确删除确认**
+- [x] **3.2 实现明确删除确认**
       Spec ref: `MVP 规格 > AC-09`
       What to build: UI 和 Agent 删除共享同一确认模型，展示目标、递归影响数量和取消入口。
       Acceptance: 关闭、取消、拒绝都使 AppSpec 深度相等；过期/错误确认令牌失败；确认只删除目标子树。
       Verify: `pnpm test -- src/features/confirmation src/core/commands/remove && pnpm test:e2e -- --grep "delete confirmation"`
 
-- [ ] **3.3 实现撤销栈和操作日志**
+- [x] **3.3 实现撤销栈和操作日志**
       Spec ref: `MVP 规格 > AC-10、AC-11`
       What to build: 成功写命令保存前态；日志记录来源、命令、状态、时间、摘要和撤销可用性。
       Acceptance: add/update/move/remove 均可撤销；20 条混合命令逆序恢复到初始深度相等；失败/只读命令不进入撤销栈；日志最多 50 条。
       Verify: `pnpm test -- src/core/history src/features/activity-log && pnpm test:e2e -- --grep "20 step undo"`
 
-- [ ] **3.4 实现持久化和安全恢复**
+- [x] **3.4 实现持久化和安全恢复**
       Spec ref: `MVP 规格 > AC-12`
       What to build: 节流保存最后有效 AppSpec；启动时校验版本和内容；失败可选 CRM/空白模板。
       Acceptance: 刷新恢复深度相等；非法 JSON、未知版本、结构损坏三类 fixture 均不白屏且不覆盖原数据；用户能一键恢复模板。
@@ -60,12 +60,12 @@
 
 ## 严格退出门
 
-- [ ] AC-09～AC-12 每条均有自动化和至少一次人工浏览器证据。
-- [ ] 20 步混合撤销测试精确恢复初始 AppSpec。
-- [ ] 删除拒绝、损坏 localStorage、非法属性三个失败流程均不丢失最后有效状态。
-- [ ] 日志中无凭据、完整大字段或无法区分的人/Agent 来源。
-- [ ] 全量质量命令和生产构建退出码为 0。
-- [ ] `docs/STATE.md`、证据和已知限制更新，用户确认进入 Stage 4。
+- [x] AC-09～AC-12 每条均有自动化和本地浏览器证据。
+- [x] 20 步混合撤销测试精确恢复初始 AppSpec。
+- [x] 删除拒绝、损坏 localStorage、非法属性三个失败流程均不丢失最后有效状态。
+- [x] 日志中无凭据、完整大字段或无法区分的人/Agent 来源。
+- [x] 全量质量命令和生产构建退出码为 0。
+- [x] `docs/STATE.md`、证据和已知限制已更新；用户已在执行 Prompt 中确认按顺序进入 Stage 4。
 
 ## 证据
 

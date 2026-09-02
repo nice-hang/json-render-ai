@@ -31,11 +31,12 @@ button {
 }
 .studio-shell {
   min-height: 100vh;
-  display: grid;
-  grid-template-rows: 64px 1fr;
+  display: flex;
+  flex-direction: column;
   background: #e8ede9;
 }
 .studio-header {
+  min-height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -93,7 +94,52 @@ button {
   border-color: #8e4f4f;
   color: #ffb1ac;
 }
+.header-action {
+  min-height: 30px;
+  border: 1px solid #425349;
+  border-radius: 7px;
+  padding: 5px 9px;
+  color: #dce8df;
+  background: #22372a;
+  font-size: 10px;
+  cursor: pointer;
+}
+.header-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.recovery-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 18px;
+  color: #623c11;
+  background: #fff1cf;
+  border-bottom: 1px solid #e7cc91;
+}
+.recovery-banner > div:first-child {
+  display: grid;
+  gap: 2px;
+}
+.recovery-banner span {
+  font-size: 10px;
+}
+.recovery-banner > div:last-child {
+  display: flex;
+  gap: 7px;
+}
+.recovery-banner button {
+  border: 1px solid #caa563;
+  border-radius: 7px;
+  padding: 7px 10px;
+  background: #fff9e9;
+  font-size: 10px;
+  font-weight: 750;
+  cursor: pointer;
+}
 .studio-grid {
+  flex: 1;
   min-height: 0;
   display: grid;
   grid-template-columns: 225px minmax(560px, 1fr) 260px;
@@ -390,6 +436,7 @@ button {
   font-weight: 700;
 }
 .field-stack input,
+.field-stack select,
 .field-stack textarea {
   width: 100%;
   border: 1px solid #d5ddd7;
@@ -401,9 +448,59 @@ button {
   resize: vertical;
 }
 .field-stack input:focus,
+.field-stack select:focus,
 .field-stack textarea:focus {
   outline: 2px solid #6dcc8b;
   outline-offset: 1px;
+}
+.structure-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 15px;
+  padding-top: 14px;
+  border-top: 1px solid #e0e5e1;
+}
+.structure-actions > div,
+.confirmation-card > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.structure-actions button,
+.confirmation-card button {
+  min-height: 30px;
+  border: 1px solid #d5ddd7;
+  border-radius: 7px;
+  padding: 6px 9px;
+  background: white;
+  font-size: 9px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.structure-actions button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+.structure-actions .danger-action,
+.confirmation-card .danger-action {
+  color: #8a2f2f;
+  border-color: #e9b8b8;
+  background: #fff0f0;
+}
+.confirmation-card {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 11px;
+  border: 1px solid #e9b8b8;
+  border-radius: 9px;
+  color: #682929;
+  background: #fff6f6;
+  font-size: 10px;
+}
+.confirmation-card p {
+  margin: 0;
+  line-height: 1.4;
 }
 .primary-action,
 .secondary-action {
