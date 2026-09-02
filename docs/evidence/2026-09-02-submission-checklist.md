@@ -23,17 +23,17 @@ The Official Rules and Hackathon Website prevail over this helper checklist and 
 
 ## Project and repository
 
-| Requirement                                                          | Status          | Evidence / action                                                         |
-| -------------------------------------------------------------------- | --------------- | ------------------------------------------------------------------------- |
-| WebMCP-powered web application                                       | `passed_local`  | Exact eight-tool native Chrome evidence in Stage 2/4                      |
-| Works consistently as described                                      | `passed_local`  | Full gates and 3/3 independent rehearsals                                 |
-| New or meaningfully extended during Aug 25–Sep 3 period              | `passed_local`  | Repository implementation commits dated Sep 2, 2026; preserve Git history |
-| Authorized third-party SDK/API/data use                              | `in_progress`   | Dependency license inventory and attribution review pending               |
-| Public source repository                                             | `passed_public` | https://github.com/nice-hang/json-render-ai opened logged out on Sep 2    |
-| All source, assets, and functional instructions present              | `in_progress`   | Final clean-clone gate pending                                            |
-| Detectable open-source license                                       | `in_progress`   | MIT `LICENSE` prepared locally; recheck after push                        |
-| WebMCP registration visible in repository                            | `passed_local`  | `src/adapters/webmcp/tools.ts` and README registration section            |
-| Repository has no credentials, private data, or local absolute paths | `in_progress`   | Final tracked-file and secret scans pending                               |
+| Requirement                                                          | Status          | Evidence / action                                                           |
+| -------------------------------------------------------------------- | --------------- | --------------------------------------------------------------------------- |
+| WebMCP-powered web application                                       | `passed_local`  | Exact eight-tool native Chrome evidence in Stage 2/4                        |
+| Works consistently as described                                      | `passed_local`  | Full gates and 3/3 independent rehearsals                                   |
+| New or meaningfully extended during Aug 25–Sep 3 period              | `passed_local`  | Repository implementation commits dated Sep 2, 2026; preserve Git history   |
+| Authorized third-party SDK/API/data use                              | `passed_local`  | Production dependencies are Apache-2.0 or MIT; `pnpm audit --prod` is clean |
+| Public source repository                                             | `passed_public` | https://github.com/nice-hang/json-render-ai opened logged out on Sep 2      |
+| All source, assets, and functional instructions present              | `passed_public` | Public clean clone passed the documented full gate in 24 seconds            |
+| Detectable open-source license                                       | `passed_public` | GitHub detected the committed MIT license in a logged-out view              |
+| WebMCP registration visible in repository                            | `passed_local`  | `src/adapters/webmcp/tools.ts` and README registration section              |
+| Repository has no credentials, private data, or local absolute paths | `passed_local`  | Tracked secret, key/env-file, and absolute-path scans returned no matches   |
 
 ## Required materials
 

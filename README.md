@@ -108,7 +108,8 @@ Follow [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md). The deterministic sequence 
 
 - Stage 0–4 verification: [`docs/evidence/`](docs/evidence/)
 - Native three-run rehearsal and 1280×720 evidence: [`docs/evidence/2026-09-02-phase-4-verification.md`](docs/evidence/2026-09-02-phase-4-verification.md)
-- Final acceptance matrix: prepared during Stage 5
+- Final acceptance matrix: [`docs/evidence/2026-09-02-mvp-acceptance-matrix.md`](docs/evidence/2026-09-02-mvp-acceptance-matrix.md) — 15/18 passed; external release gates are explicitly open
+- Stage 5 release evidence: [`docs/evidence/2026-09-02-phase-5-verification.md`](docs/evidence/2026-09-02-phase-5-verification.md)
 
 ## Known limitations
 
