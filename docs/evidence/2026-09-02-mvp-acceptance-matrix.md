@@ -1,7 +1,7 @@
 # MVP Acceptance Matrix
 
 - Date: 2026-09-02 (Asia/Shanghai)
-- Candidate commit: `8980253` on `main`
+- Candidate commit: `bc289c4` on `main`
 - Result: `15/18 passed`; AC-16～AC-18 remain blocked by authorized external work and user confirmation
 - Authority: [`../specs/2026-09-02-webmcp-builder-mvp.md`](../specs/2026-09-02-webmcp-builder-mvp.md)
 
@@ -24,7 +24,7 @@
 | AC-13 | `passed`                | Three independent native Chrome contexts completed the full CRM flow in 622ms, 533ms, and 556ms, far below the three-minute ceiling. See [Stage 4](2026-09-02-phase-4-verification.md).                                                                                                                       |
 | AC-14 | `passed`                | A visually inspected 1280×720 capture and automated bounds/focus assertions expose tree, canvas, properties, Activity, protocol status, confirmation, and errors without developer tools. See [Stage 4](2026-09-02-phase-4-verification.md).                                                                  |
 | AC-15 | `passed`                | Both the candidate worktree and public clean clone pass format, lint, typecheck, 48 unit/integration tests, 10 E2E tests, three real WebMCP rehearsals, and production build with no skipped critical tests. See [Stage 5 evidence](2026-09-02-phase-5-verification.md).                                      |
-| AC-16 | `blocked_authorization` | The static production build passes, but no public HTTPS deployment has been authorized. A logged-out production session and production WebMCP check therefore cannot yet be evidenced.                                                                                                                        |
+| AC-16 | `blocked_authorization` | The static production build and direct production-URL native WebMCP harness pass locally, but no public HTTPS deployment has been authorized. A logged-out production session therefore cannot yet be evidenced.                                                                                              |
 | AC-17 | `blocked_by_AC-16`      | The public repository, English README, architecture, install/test/browser/demo/limits sections, MIT license, scans, and images are complete. The required verified deployment address remains intentionally absent until AC-16.                                                                               |
 | AC-18 | `blocked_authorization` | The public repo, English description, three screenshots, script, and official-rule checklist are prepared. A production URL, public narrated video, Devpost registration/eligibility confirmation, and final human approval remain outstanding.                                                               |
 

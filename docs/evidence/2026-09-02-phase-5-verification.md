@@ -1,7 +1,7 @@
 # Stage 5 Verification — Submission Release
 
 - Date: 2026-09-02 (Asia/Shanghai)
-- Candidate artifact commit: `8980253` on `main`
+- Candidate artifact commit: `bc289c4` on `main`
 - Result: `in_progress` — all authorized local preparation passed; external release gates remain closed
 - Stage 4 prerequisite: [`2026-09-02-phase-4-verification.md`](2026-09-02-phase-4-verification.md)
 
@@ -32,11 +32,32 @@ pnpm build
 CLEAN_CLONE_ELAPSED_SECONDS=24
 48 unit/integration tests passed
 10 E2E tests passed
-3 native WebMCP rehearsals passed: 580ms, 539ms, 584ms
+3 native WebMCP rehearsals passed: 632ms, 489ms, 507ms
 production build passed
 ```
 
 After the gate, `pnpm dev --host 127.0.0.1` became ready in 74ms and an HTTP request returned the application entry containing `<div id="root"></div>`. This is comfortably inside AC-01's ten-minute requirement.
+
+The release candidate was cloned again after `bc289c4` was pushed. That fresh public clone independently repeated the complete gate above in 24 seconds, including the updated deployable production-test harness.
+
+## Production URL gate prepared (G5.2 preflight)
+
+`playwright.production.config.ts` runs the same native Chrome three-rehearsal specification directly against `PRODUCTION_URL`, without a Playwright `webServer` or application shim. It requires HTTPS for every non-localhost target, preserves deployment subpaths, and writes a separate production report.
+
+The harness itself was focused-tested against a separately started local origin before any public deployment:
+
+```text
+missing PRODUCTION_URL                 rejected before browser launch
+http://example.com                    rejected before browser launch
+http://127.0.0.1:4173                 allowed for harness verification only
+local external-origin rehearsals      542ms, 625ms, 508ms; 3/3 passed
+```
+
+This proves the release command is executable, but it is not AC-16 evidence. AC-16 still requires an authorized public HTTPS URL and a logged-out run of:
+
+```bash
+PRODUCTION_URL=https://verified-public-url.example pnpm test:e2e:production
+```
 
 ## Repository, license, and safety checks
 
@@ -58,6 +79,7 @@ pnpm typecheck                 exit 0
 pnpm test                      exit 0 (7 files, 48 tests)
 pnpm test:e2e                  exit 0 (10 tests)
 pnpm test:webmcp:real          exit 0 (3 independent native rehearsals)
+pnpm test:e2e:production       exit 0 (3 local harness-validation rehearsals; not AC-16)
 pnpm capture:screenshots       exit 0 (3 native screenshots)
 pnpm build                     exit 0 (139 modules transformed)
 ```
