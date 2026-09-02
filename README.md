@@ -112,6 +112,17 @@ The timed, word-for-word English voice-over is in [`docs/VIDEO_NARRATION.md`](do
 
 `pnpm build` creates a static Vite application in `dist/`, suitable for any HTTPS static host. A public challenge deployment URL will be added only after deployment is explicitly authorized and verified in a logged-out browser session.
 
+## Build the private local handoff
+
+On macOS, install `ffmpeg` once and generate the complete local-only package:
+
+```bash
+brew install ffmpeg
+pnpm build:delivery
+```
+
+The ignored `deliverables/` directory receives a production build, source snapshot, narrated 1280×720 MP4, screenshots, submission documents, checksums, and an outer ZIP. This command does not deploy or upload anything. Package instructions are in [`docs/LOCAL_DELIVERY.md`](docs/LOCAL_DELIVERY.md).
+
 ## Current evidence
 
 - Stage 0–4 verification: [`docs/evidence/`](docs/evidence/)

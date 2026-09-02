@@ -21,7 +21,8 @@
     "test:e2e": "playwright test",
     "test:e2e:production": "playwright test --config playwright.production.config.ts",
     "test:webmcp:real": "playwright test --config playwright.real-webmcp.config.ts",
-    "capture:screenshots": "playwright test --config playwright.screenshots.config.ts"
+    "capture:screenshots": "playwright test --config playwright.screenshots.config.ts",
+    "build:delivery": "sh scripts/build-local-delivery.sh"
   },
   "dependencies": {
     "@json-render/core": "0.20.0",

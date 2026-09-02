@@ -2,6 +2,8 @@
 
 Target: 2 minutes 20 seconds at a calm pace. Record the application at 1280×720 or larger, use original English narration, and do not add music. Follow [`DEMO_SCRIPT.md`](DEMO_SCRIPT.md) for the exact interactions.
 
+The narration-only input used by the local video builder is [`VIDEO_NARRATION.txt`](VIDEO_NARRATION.txt).
+
 ## 0:00–0:20 — Shared workspace
 
 “This is json-render-ai, a low-code workspace where a person and a browser agent safely build the same application. The component tree, real json-render canvas, type-driven properties, and shared Activity trail are all visible together. Reset gives us the same Northstar CRM for every run.”
