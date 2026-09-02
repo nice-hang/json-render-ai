@@ -26,6 +26,7 @@
 - Undo 历史固定为 20 个已提交前态，Activity 固定为 50 条脱敏截断摘要；二者不跨刷新，最后有效 AppSpec 跨刷新恢复。
 - Reset Demo 在同一 Runtime 内恢复 15 节点 CRM 并清空会话状态；最终三次原生 Chrome 彩排分别为 622ms、533ms、556ms。
 - 公共 `main` 候选已通过干净 clone 复现：全流程 24 秒，dev server 74ms 就绪；最终 AC 矩阵当前严格为 15/18 passed。
+- 生产验证入口已准备：`PRODUCTION_URL=<https-url> pnpm test:e2e:production` 会直接对公网来源运行三次原生 WebMCP 完整闭环，不启动本地替代服务；英文逐字旁白已定时到 2 分 20 秒。
 
 ## 待确认决策
 

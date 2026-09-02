@@ -90,13 +90,13 @@ https://github.com/nice-hang/json-render-ai
 2. `docs/assets/delete-confirmation.png` — visible stable target, five-component recursive impact, Cancel, and Confirm delete.
 3. `docs/assets/shared-activity.png` — human-updated CRM, Agent-created `$530K` forecast, and source-labelled human/Agent Activity.
 
-All three are generated reproducibly with `pnpm capture:screenshots` in a native Chrome WebMCP session.
+All three are generated reproducibly with `pnpm capture:screenshots` in a native Chrome WebMCP session. The timed, word-for-word English voice-over is in `docs/VIDEO_NARRATION.md`.
 
 ## Submission Readiness Notes
 
-- Repository: public and pushed to `main`; final Stage 5 artifact commit pending.
-- License: MIT file prepared; public GitHub detection must be rechecked after push.
-- Local quality gates: Stage 0–4 passed, including 48 unit/integration tests, 10 ordinary E2E tests, native WebMCP, and production build at the latest Stage 4 gate.
+- Repository: public and pushed to `main`; the Stage 5 local release-readiness evidence is committed.
+- License: the MIT file is public and GitHub license detection was verified logged out.
+- Local quality gates: Stage 0–4 and the Stage 5 clean-clone gate passed, including 48 unit/integration tests, 10 ordinary E2E tests, three native WebMCP rehearsals, and production build.
 - Native demo: three consecutive independent local Chrome runs passed with zero page/console errors.
 - Official deadline checked on 2026-09-02: September 3, 2026 at 1:00 p.m. Pacific Time.
 - External gaps: public live URL and public YouTube URL.

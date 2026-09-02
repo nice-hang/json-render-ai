@@ -45,7 +45,7 @@ async function runCompetitionDemo(page: Page, rehearsal: number) {
   page.on('console', (message) => {
     if (message.type() === 'error') fatalErrors.push(message.text())
   })
-  await page.goto('http://127.0.0.1:4173/')
+  await page.goto('./')
   await expect(page.getByTestId('webmcp-status')).toHaveText(
     'WebMCP registered',
   )

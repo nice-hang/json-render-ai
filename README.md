@@ -85,6 +85,12 @@ pnpm test:webmcp:real
 
 This lane does not inject a page shim. It calls native `document.modelContext.getTools()` and the Chrome testing `executeTool()` interface. The ordinary E2E adapter fixture is clearly separated and is not used as protocol evidence.
 
+After deployment, run the same native three-rehearsal flow against the public HTTPS origin. This command does not start or substitute a local server:
+
+```bash
+PRODUCTION_URL=https://your-deployment.example pnpm test:e2e:production
+```
+
 ## Three-minute demo
 
 Follow [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md). The deterministic sequence includes:
@@ -95,6 +101,8 @@ Follow [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md). The deterministic sequence 
 4. Open deletion confirmation and cancel it; state stays unchanged.
 5. Let the Agent preview and confirm removal, then undo it.
 6. Show the human/Agent Activity trail and final validation.
+
+The timed, word-for-word English voice-over is in [`docs/VIDEO_NARRATION.md`](docs/VIDEO_NARRATION.md).
 
 ![Deletion confirmation](docs/assets/delete-confirmation.png)
 
