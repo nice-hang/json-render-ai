@@ -1,44 +1,72 @@
 # json-render-ai
 
-一个基于 [json-render](https://github.com/vercel-labs/json-render) 和 WebMCP 构建的 Agent 原生低代码工作台。
+An agent-native low-code workspace where people and browser agents safely build the same application together.
 
-本项目探索一种人与浏览器 Agent 共享的应用构建方式：人可以直接编辑可视化画布，Agent 则通过结构化 WebMCP 工具检查和修改同一份 json-render 规格。
+Humans edit a structured component inspector. Agents discover eight WebMCP tools for reading, adding, updating, moving, validating, removing, and undoing. Both paths enter one serial Command Runtime, update one validated AppSpec, and render immediately through the real [`json-render`](https://github.com/vercel-labs/json-render) React renderer.
 
-## MVP
+![Northstar CRM workspace](docs/assets/workspace-overview.png)
 
-- 使用 json-render 渲染受约束的组件目录
-- 将低代码编辑操作暴露为 WebMCP 工具
-- 支持 Agent 检查、新增、更新、移动和删除组件
-- 让人与 Agent 的修改实时同步到同一画布
-- 校验每次结构化修改，并提供撤销历史
-- 清晰展示人与 Agent 的操作日志
+## Why WebMCP
 
-## 核心理念
+Visual builders are difficult for agents: controls are spread across a changing DOM, IDs are unstable, and destructive actions can be ambiguous. WebMCP gives this builder a bounded, documented editing surface while the human keeps a visual inspector, confirmation controls, Undo, and a shared audit trail.
 
-```text
-人工编辑 ─────┐
-              ├─→ 工作台命令运行时 ─→ json-render 规格 ─→ 实时画布
-WebMCP 工具 ──┘
+The result is a workflow that was awkward before WebMCP: an agent can inspect and restructure a visual application without guessing at UI selectors, while its human collaborator sees every change on the same canvas and can reject or reverse it.
+
+## What works
+
+- Eight validated component types: Page, Stack, Card, Text, Metric, Button, Input, and Select
+- Eight native WebMCP tools: `describe_app`, `list_components`, `add_component`, `update_component`, `move_component`, `remove_component`, `validate_app`, and `undo_last_change`
+- Human and Agent writes serialized by one Command Runtime
+- Atomic Catalog and structural validation with path-level errors
+- Revision-bound deletion preview and explicit confirmation
+- Twenty-step snapshot Undo and a 50-entry redacted human/Agent Activity log
+- Versioned local persistence with damaged-data recovery
+- Deterministic Northstar CRM demo reset
+- Real Chrome 152 WebMCP discovery and invocation tests without a production shim
+
+## Architecture
+
+```mermaid
+flowchart LR
+  H[Human inspector] --> R[Serial Command Runtime]
+  A[8 WebMCP tools] --> R
+  R --> V[Catalog + AppSpec validation]
+  V --> S[Frozen AppSpec Store]
+  S --> J[json-render adapter]
+  J --> C[Live React canvas]
+  R --> U[Undo snapshots]
+  R --> L[Human / Agent Activity]
+  S --> P[Last-valid local persistence]
 ```
 
-WebMCP 工具的输入规格由 json-render 组件目录驱动，使 Agent 只能使用受支持的组件和经过校验的属性。
+The UI and WebMCP adapter never mutate the Store directly. The only AppSpec-to-json-render mapping lives under `src/adapters/json-render/`.
 
-## 当前状态
+WebMCP registration uses the standard browser surface:
 
-Stage 4 已验证。当前仓库包含唯一 AppSpec Store、串行 Command Runtime、CRM/空白模板、真实 json-render 画布、Catalog 驱动属性编辑、显式删除确认、20 步撤销、50 条安全 human/agent 日志、最后有效状态恢复和确定性 Reset Demo；标准 `document.modelContext` 注册全部 8 个 Builder 工具，并已在真实 Chrome 的三个独立会话中连续跑通完整比赛闭环。Stage 5 正在准备干净 clone、README、许可证和比赛提交制品。
+```ts
+registerWebMcpTools(runtime, document.modelContext)
+```
 
-## 本地运行
+Each descriptor is ultimately registered with `document.modelContext.registerTool(...)` semantics and disposed through an `AbortSignal`.
 
-要求：Node.js 22.12+、pnpm 11.20+。
+## Run locally
+
+Requirements:
+
+- Node.js 22.12 or later
+- pnpm 11.20 or later
+- Google Chrome 149 or later for native WebMCP testing (Chrome 152 is verified)
 
 ```bash
+git clone https://github.com/nice-hang/json-render-ai.git
+cd json-render-ai
 pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-打开 `http://127.0.0.1:4173`。在组件树选择 `Text crm-intro`，修改 Content 并保存；再通过属性面板的 Quick add 新增 Metric。两类人工操作都经过 Command Runtime，并同步更新组件树、真实 json-render 画布和活动日志。
+Open `http://127.0.0.1:4173`. Click **Reset demo**, select `Text crm-intro`, edit Content, and click **Save properties**. The component tree, real json-render canvas, revision, Undo, persistence, and Activity update from the same Runtime command.
 
-## 验证
+## Verify
 
 ```bash
 pnpm format
@@ -49,20 +77,46 @@ pnpm test:e2e
 pnpm build
 ```
 
-真实 WebMCP lane 需要本机安装 Google Chrome 152+，并由测试进程通过官方实验开关启动独立浏览器会话：
+The native WebMCP lane launches an isolated local Chrome session with the official testing flag and performs the complete competition flow three consecutive times:
 
 ```bash
 pnpm test:webmcp:real
 ```
 
-普通 `test:e2e` 中的 WebMCP 测试只验证 adapter 契约并显式注入测试表面；它不作为真实协议证据。`test:webmcp:real` 不注入 shim，直接通过 Chrome 原生 `document.modelContext.getTools()` 和 `executeTool()` 发现并调用工具。
+This lane does not inject a page shim. It calls native `document.modelContext.getTools()` and the Chrome testing `executeTool()` interface. The ordinary E2E adapter fixture is clearly separated and is not used as protocol evidence.
 
-## 项目流程
+## Three-minute demo
 
-项目采用带阶段门和验证证据的分阶段交付流程。文档地图和阶段规则见 [`docs/README.md`](docs/README.md)。
+Follow [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md). The deterministic sequence includes:
 
-三分钟 CRM 演示的固定步骤和精确工具输入见 [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md)。
+1. Reset and identify the four workspace regions.
+2. Make a visible human Text update.
+3. Let the Agent discover, read, add, update, and move through native WebMCP.
+4. Open deletion confirmation and cancel it; state stays unchanged.
+5. Let the Agent preview and confirm removal, then undo it.
+6. Show the human/Agent Activity trail and final validation.
 
-## 开源协议
+![Deletion confirmation](docs/assets/delete-confirmation.png)
 
-首次发布前将补充开源协议。
+![Shared human and Agent activity](docs/assets/shared-activity.png)
+
+## Deployment
+
+`pnpm build` creates a static Vite application in `dist/`, suitable for any HTTPS static host. A public challenge deployment URL will be added only after deployment is explicitly authorized and verified in a logged-out browser session.
+
+## Current evidence
+
+- Stage 0–4 verification: [`docs/evidence/`](docs/evidence/)
+- Native three-run rehearsal and 1280×720 evidence: [`docs/evidence/2026-09-02-phase-4-verification.md`](docs/evidence/2026-09-02-phase-4-verification.md)
+- Final acceptance matrix: prepared during Stage 5
+
+## Known limitations
+
+- WebMCP is experimental. Ordinary browsers without WebMCP support show `WebMCP unavailable`; Chrome must enable `chrome://flags/#enable-webmcp-testing` or use the documented automated lane.
+- AppSpec persistence is browser-local. Undo snapshots and Activity entries are session-local and intentionally reset on refresh.
+- The MVP uses a fixed eight-component Catalog and structured commands; it does not accept arbitrary patches, executable code, cloud collaboration, or free-form drag-and-drop.
+- The generated CRM is demonstration data, not a connected CRM backend.
+
+## License
+
+[MIT](LICENSE)

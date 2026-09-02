@@ -2,6 +2,7 @@
   "name": "json-render-ai",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@11.20.0",
   "engines": {
@@ -18,7 +19,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "test:webmcp:real": "playwright test --config playwright.real-webmcp.config.ts"
+    "test:webmcp:real": "playwright test --config playwright.real-webmcp.config.ts",
+    "capture:screenshots": "playwright test --config playwright.screenshots.config.ts"
   },
   "dependencies": {
     "@json-render/core": "0.20.0",
