@@ -110,7 +110,9 @@ The timed, word-for-word English voice-over is in [`docs/VIDEO_NARRATION.md`](do
 
 ## Deployment
 
-`pnpm build` creates a static Vite application in `dist/`, suitable for any HTTPS static host. A public challenge deployment URL will be added only after deployment is explicitly authorized and verified in a logged-out browser session.
+The verified production deployment is available at [json-render-ai.vercel.app](https://json-render-ai.vercel.app/). It opens without authentication and exposes the same eight native WebMCP tools as the local build.
+
+`pnpm build` creates the static Vite application in `dist/`. Vercel deploys the public `main` branch.
 
 ## Build the private local handoff
 
@@ -130,7 +132,7 @@ The generated handoff is `deliverables/json-render-ai-webmcp-mvp-2026-09-03.zip`
 - Stage 0–4 verification: [`docs/evidence/`](docs/evidence/)
 - Native three-run rehearsal and 1280×720 evidence: [`docs/evidence/2026-09-02-phase-4-verification.md`](docs/evidence/2026-09-02-phase-4-verification.md)
 - Real Codex Agent discovery and mutation evidence: [`docs/evidence/2026-09-03-codex-agent-webmcp-verification.md`](docs/evidence/2026-09-03-codex-agent-webmcp-verification.md)
-- Final acceptance matrix: [`docs/evidence/2026-09-02-mvp-acceptance-matrix.md`](docs/evidence/2026-09-02-mvp-acceptance-matrix.md) — 15/18 passed; external release gates are explicitly open
+- Final acceptance matrix: [`docs/evidence/2026-09-02-mvp-acceptance-matrix.md`](docs/evidence/2026-09-02-mvp-acceptance-matrix.md) — 17/18 passed; public video and final submission gates remain open
 - Stage 5 release evidence: [`docs/evidence/2026-09-02-phase-5-verification.md`](docs/evidence/2026-09-02-phase-5-verification.md)
 - Latest private local-handoff evidence: [`docs/evidence/2026-09-03-local-delivery-verification.md`](docs/evidence/2026-09-03-local-delivery-verification.md)
 

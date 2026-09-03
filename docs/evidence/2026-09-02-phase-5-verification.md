@@ -2,7 +2,7 @@
 
 - Last updated: 2026-09-03 (Asia/Shanghai)
 - Latest local artifact source commit: `3ee03a7` on `main`
-- Result: `in_progress` — all authorized local preparation passed; external release gates remain closed
+- Result: `in_progress` — production deployment and repository delivery passed; public video and final submission gates remain open
 - Stage 4 prerequisite: [`2026-09-02-phase-4-verification.md`](2026-09-02-phase-4-verification.md)
 
 ## Prepared release artifacts
@@ -57,7 +57,7 @@ CLEAN_CLONE_ELAPSED_SECONDS          24
 
 This is the authoritative AC-01/G5.1 clean-clone result for the latest executable-content candidate. Subsequent commits in this evidence pass only update tracked verification documents; they do not alter dependencies, application code, tests, build configuration, or package scripts.
 
-## Production URL gate prepared (G5.2 preflight)
+## Production URL gate (G5.2)
 
 `playwright.production.config.ts` runs the same native Chrome three-rehearsal specification directly against `PRODUCTION_URL`, without a Playwright `webServer` or application shim. It requires HTTPS for every non-localhost target, preserves deployment subpaths, and writes a separate production report.
 
@@ -70,11 +70,24 @@ http://127.0.0.1:4173                 allowed for harness verification only
 local external-origin rehearsals      542ms, 625ms, 508ms; 3/3 passed
 ```
 
-This proves the release command is executable, but it is not AC-16 evidence. AC-16 still requires an authorized public HTTPS URL and a logged-out run of:
+After the user authorized Vercel deployment, the public production URL became:
 
-```bash
-PRODUCTION_URL=https://verified-public-url.example pnpm test:e2e:production
+```text
+https://json-render-ai.vercel.app/
 ```
+
+Vercel reported the initial production deployment as `Ready`, sourced from `main@60da699`. The URL opened without application authentication in a new Chrome tab and a new Codex in-app browser tab. Both showed the 15-node CRM and `WebMCP registered`; neither browser surface recorded a console error.
+
+The production-URL harness targeted the public HTTPS origin directly and completed the full competition flow in three independent native Chrome contexts:
+
+```text
+REHEARSAL 1: 2283ms, passed
+REHEARSAL 2: 1698ms, passed
+REHEARSAL 3: 1637ms, passed
+1 test passed; exit 0
+```
+
+The Codex in-app browser separately exposed its native `webmcp` capability, fetched exactly the eight page-defined tools from the Vercel origin, and successfully called `describe_app` and `list_components`. They returned version 1, revision 0, root `crm-page`, and all 15 stable component IDs without changing state. See the dedicated [production evidence](2026-09-03-vercel-production-verification.md).
 
 ## Repository, license, and safety checks
 
@@ -111,14 +124,14 @@ The local timezone is not evidence of residence. Entrant age, eligible residence
 
 ## Open gates
 
-| Gate                              | Status                    | Reason / next evidence                                                                                  |
-| --------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------- |
-| G5.1 clean environment            | `passed`                  | Public clone completed the full documented gate and startup in 24 seconds                               |
-| G5.2 logged-out production        | `blocked_authorization`   | No public hosting operation has been authorized                                                         |
-| G5.3 official checklist           | `partial`                 | Official sources reviewed; entrant confirmations, live URL, and video remain outstanding                |
-| G5.4 authorized external writes   | `not_yet_authorized`      | Pushes are authorized and complete; deployment, public video, and Devpost submission are not authorized |
-| AC-01～AC-18                      | `15/18 passed`            | AC-16～AC-18 are not marked passed; see the final matrix                                                |
-| Public narrated video             | `prepared_local`          | A verified 130.48-second narrated MP4 exists locally; YouTube publication remains unauthorized          |
-| Devpost registration/final submit | `needs_user_confirmation` | No authenticated Devpost state or final approval has been provided                                      |
+| Gate                              | Status                    | Reason / next evidence                                                                              |
+| --------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------- |
+| G5.1 clean environment            | `passed`                  | Public clone completed the full documented gate and startup in 24 seconds                           |
+| G5.2 logged-out production        | `passed`                  | Public Vercel origin passed 3/3 native flows plus real Codex discovery/read with no console errors  |
+| G5.3 official checklist           | `partial`                 | Official sources reviewed; entrant confirmations and public video remain outstanding                |
+| G5.4 authorized external writes   | `partial`                 | Pushes and Vercel deployment are authorized; public video and Devpost submission are not authorized |
+| AC-01～AC-18                      | `17/18 passed`            | Only AC-18 remains open; see the final matrix                                                       |
+| Public narrated video             | `prepared_local`          | A verified 130.48-second narrated MP4 exists locally; YouTube publication remains unauthorized      |
+| Devpost registration/final submit | `needs_user_confirmation` | No authenticated Devpost state or final approval has been provided                                  |
 
-Stage 5 is deliberately not marked `verified`. No application was deployed, no video was published, and nothing was submitted to Devpost while those actions lacked explicit authorization.
+Stage 5 is deliberately not marked `verified`. The application is deployed and verified, but no video was published and nothing was submitted to Devpost while those actions lack explicit authorization.

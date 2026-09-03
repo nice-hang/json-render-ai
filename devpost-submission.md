@@ -74,7 +74,7 @@ For a guided manual run, use `pnpm dev`, open `http://127.0.0.1:4173`, and follo
 
 ## Public Demo Link
 
-**TODO — external deployment requires final authorization.**
+https://json-render-ai.vercel.app/
 
 ## Public Repository Link
 
@@ -102,7 +102,7 @@ The first three are generated reproducibly with `pnpm capture:screenshots` in a 
 - Codex Agent: a real Codex desktop browser session discovered all eight page tools and completed the full mutation, confirmation, Undo, refresh, and visible-audit flow.
 - Official deadline checked on 2026-09-02: September 3, 2026 at 1:00 p.m. Pacific Time.
 - Local video: narrated 1280×720 MP4 prepared and verified in the private handoff.
-- External gaps: public live URL and public YouTube URL.
+- External gap: public YouTube URL.
 - Human gates: entrant eligibility/residence, Devpost registration, ownership/support declarations, official-rule agreement, final material review, deployment, publication, and submit authorization.
 
 ## Known Limitations
@@ -111,14 +111,13 @@ The first three are generated reproducibly with `pnpm capture:screenshots` in a 
 - Persistence is browser-local; Undo and Activity are intentionally session-local.
 - The component Catalog is deliberately fixed to eight types; arbitrary patches, executable code, cloud collaboration, and free-form drag-and-drop are outside this MVP.
 - The CRM is deterministic demonstration data rather than a connected backend.
-- A public deployment has not yet been created or claimed.
+- The production application is intentionally a static, browser-local MVP without cloud persistence or authentication.
 
 ## TODO Official Form Fields
 
 - Confirm entrant/team display name and member list.
 - Confirm the entrant or authorized representative satisfies the official residence, age, employment/conflict, and organization eligibility rules.
 - Confirm Devpost registration for The WebMCP Challenge.
-- Add and re-verify the public live application URL.
 - Add and re-verify the public YouTube video URL.
 - Confirm ownership, third-party-license compliance, originality/new-work dates, and absence of prohibited financial or preferential support.
 - Review and explicitly agree to the current Official Rules before any submission action.
