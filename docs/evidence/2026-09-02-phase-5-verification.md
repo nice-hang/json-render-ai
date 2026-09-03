@@ -41,6 +41,22 @@ After the gate, `pnpm dev --host 127.0.0.1` became ready in 74ms and an HTTP req
 
 The release candidate was cloned again after `bc289c4` was pushed. That fresh public clone independently repeated the complete gate above in 24 seconds, including the updated deployable production-test harness.
 
+The current public `main` was revalidated after all local-handoff, real-Codex, and submission-day evidence updates. A new depth-one clone resolved exactly `bd2cffc257bc03da07fd4e62e17e168f3677b10d` and ran the README sequence without any copied workspace state:
+
+```text
+pnpm install --frozen-lockfile       passed
+pnpm format                         passed
+pnpm lint                           passed
+pnpm typecheck                      passed
+pnpm test                           48/48 passed
+pnpm test:e2e                       10/10 passed
+pnpm test:webmcp:real               632ms, 548ms, 599ms; 3/3 passed
+pnpm build                          passed; 139 modules transformed
+CLEAN_CLONE_ELAPSED_SECONDS          24
+```
+
+This latest run is the authoritative AC-01/G5.1 clean-clone result for the current pushed branch.
+
 ## Production URL gate prepared (G5.2 preflight)
 
 `playwright.production.config.ts` runs the same native Chrome three-rehearsal specification directly against `PRODUCTION_URL`, without a Playwright `webServer` or application shim. It requires HTTPS for every non-localhost target, preserves deployment subpaths, and writes a separate production report.
