@@ -9,8 +9,8 @@ This package is the private, local handoff of the WebMCP Challenge MVP. It does 
 - `tools/serve-static.mjs` — the Node.js server used by the launcher.
 - `source/` — source snapshot archive and exact source commit.
 - `demo/json-render-ai-webmcp-demo.mp4` — 1280×720 narrated local demo.
-- `screenshots/` — the three native Chrome submission screenshots.
-- `submission/` — English Devpost draft, demo script, narration, acceptance matrix, Stage 5 evidence, and official checklist.
+- `screenshots/` — three native Chrome submission screenshots plus the real Codex Agent result.
+- `submission/` — English Devpost draft, demo script, narration, acceptance matrix, Stage 5 and Codex Agent evidence, and official checklist.
 - `SHA256SUMS` — integrity hashes for every handoff file except the checksum file itself.
 
 ## Open the production build

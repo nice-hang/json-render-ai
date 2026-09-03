@@ -4,12 +4,12 @@
 
 ## 当前快照
 
-- 更新时间：2026-09-02
+- 更新时间：2026-09-03
 - 项目：`json-render-ai`
 - 方向：基于 json-render 的低代码工作台，通过 WebMCP 暴露自身编辑能力
 - 活跃阶段：Stage 5 — 比赛交付
 - 阶段状态：`in_progress`
-- 最近已验证里程碑：Stage 5 公共干净 clone 在 24 秒内通过安装、全量门禁、3 次原生 WebMCP 彩排与构建；公开仓库、MIT 许可证、英文 README、三张原生截图和提交草案已准备
+- 最近已验证里程碑：真实 Codex Agent 已在本地应用发现全部 8 个 WebMCP 工具，并完成读取、新增、校验拒绝、更新、移动、删除预览/拒绝/确认、Undo、刷新恢复和可见 Agent Activity 验证
 
 ## 已确认决策
 
@@ -23,6 +23,7 @@
 - 固定 `@json-render/core`/`react` 0.20.0；WebMCP 使用标准 `document.modelContext` 和 AbortSignal 注销。
 - Store 快照冻结且仅由串行 Command Runtime 提交；CRM/空白模板有效，CRM 覆盖全部 8 种组件。
 - 8 个 Builder 工具均通过标准 `document.modelContext` 注册；真实 Chrome 已完成读、新增、更新、移动、删除确认和撤销。
+- 真实 Codex desktop Agent 已通过内置浏览器原生 `webmcp` capability 操作本地生产预览；未使用测试 shim、DOM 注入或直接 JavaScript 调用，证据见 `docs/evidence/2026-09-03-codex-agent-webmcp-verification.md`。
 - Undo 历史固定为 20 个已提交前态，Activity 固定为 50 条脱敏截断摘要；二者不跨刷新，最后有效 AppSpec 跨刷新恢复。
 - Reset Demo 在同一 Runtime 内恢复 15 节点 CRM 并清空会话状态；最终三次原生 Chrome 彩排分别为 622ms、533ms、556ms。
 - 公共 `main` 候选已通过干净 clone 复现：全流程 24 秒，dev server 74ms 就绪；最终 AC 矩阵当前严格为 15/18 passed。

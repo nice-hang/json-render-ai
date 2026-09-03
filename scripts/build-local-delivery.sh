@@ -3,7 +3,7 @@ set -eu
 
 repository_dir=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 delivery_parent="$repository_dir/deliverables"
-delivery_name="json-render-ai-webmcp-mvp-2026-09-02"
+delivery_name="json-render-ai-webmcp-mvp-2026-09-03"
 delivery_dir="$delivery_parent/$delivery_name"
 mkdir -p "$delivery_parent"
 work_dir=$(mktemp -d "$delivery_parent/.build.XXXXXX")
@@ -45,6 +45,7 @@ git rev-parse HEAD >"$delivery_dir/source/SOURCE_COMMIT"
 cp docs/assets/workspace-overview.png "$delivery_dir/screenshots/"
 cp docs/assets/delete-confirmation.png "$delivery_dir/screenshots/"
 cp docs/assets/shared-activity.png "$delivery_dir/screenshots/"
+cp docs/evidence/2026-09-03-codex-webmcp-full-page.png "$delivery_dir/screenshots/"
 cp devpost-submission.md "$delivery_dir/submission/"
 cp docs/DEMO_SCRIPT.md "$delivery_dir/submission/"
 cp docs/VIDEO_NARRATION.md "$delivery_dir/submission/"
@@ -52,6 +53,7 @@ cp docs/VIDEO_NARRATION.txt "$delivery_dir/submission/"
 cp docs/evidence/2026-09-02-mvp-acceptance-matrix.md "$delivery_dir/submission/"
 cp docs/evidence/2026-09-02-phase-5-verification.md "$delivery_dir/submission/"
 cp docs/evidence/2026-09-02-submission-checklist.md "$delivery_dir/submission/"
+cp docs/evidence/2026-09-03-codex-agent-webmcp-verification.md "$delivery_dir/submission/"
 cp LICENSE "$delivery_dir/submission/"
 
 pnpm preview --host 127.0.0.1 --port 4173 >"$work_dir/preview.log" 2>&1 &
