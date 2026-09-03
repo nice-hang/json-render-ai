@@ -89,7 +89,7 @@ Production assets were CSS 9.06 kB (2.71 kB gzip) and JavaScript 369.53 kB (111.
 
 ## Official-rule review (G5.3 partial)
 
-The challenge page, Official Rules, and OpenAI event page were reviewed on 2026-09-02. The deadline is September 3, 2026 at 1:00 PM Pacific Time (September 4 at 04:00 Asia/Shanghai). The checklist records live URL, public repository/license, English description, narrated public YouTube video under three minutes, access-through-judging, eligibility, and final confirmation requirements.
+The challenge page, Official Rules, and OpenAI event page were reviewed on 2026-09-02. On 2026-09-03 at 16:02 Asia/Shanghai, the official Devpost data interface was rechecked: the challenge remained `submissions_open`, `submissions_end_at` remained `2026-09-03T20:00:00Z`, and the latest host announcement contained no extension. The deadline is September 3, 2026 at 1:00 PM Pacific Time (September 4 at 04:00 Asia/Shanghai). The live submission form has nine required custom fields, including the live URL, public repository, tested Agent/client, and AI-tool disclosures. The checklist records these alongside the public YouTube video, access-through-judging, eligibility, freeze-after-deadline, and final confirmation requirements.
 
 The local timezone is not evidence of residence. Entrant age, eligible residence/domicile, conflict/support declarations, representative authority, Devpost registration, and acceptance of the Official Rules require the user's explicit confirmation.
 
