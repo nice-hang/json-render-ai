@@ -41,7 +41,7 @@ After the gate, `pnpm dev --host 127.0.0.1` became ready in 74ms and an HTTP req
 
 The release candidate was cloned again after `bc289c4` was pushed. That fresh public clone independently repeated the complete gate above in 24 seconds, including the updated deployable production-test harness.
 
-The current public `main` was revalidated after all local-handoff, real-Codex, and submission-day evidence updates. A new depth-one clone resolved exactly `bd2cffc257bc03da07fd4e62e17e168f3677b10d` and ran the README sequence without any copied workspace state:
+The latest executable-content candidate was revalidated after all local-handoff, real-Codex, and submission-day evidence updates. A new depth-one clone resolved exactly `bd2cffc257bc03da07fd4e62e17e168f3677b10d` and ran the README sequence without any copied workspace state:
 
 ```text
 pnpm install --frozen-lockfile       passed
@@ -55,7 +55,7 @@ pnpm build                          passed; 139 modules transformed
 CLEAN_CLONE_ELAPSED_SECONDS          24
 ```
 
-This latest run is the authoritative AC-01/G5.1 clean-clone result for the current pushed branch.
+This is the authoritative AC-01/G5.1 clean-clone result for the latest executable-content candidate. Subsequent commits in this evidence pass only update tracked verification documents; they do not alter dependencies, application code, tests, build configuration, or package scripts.
 
 ## Production URL gate prepared (G5.2 preflight)
 

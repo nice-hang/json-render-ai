@@ -26,7 +26,7 @@
 - 真实 Codex desktop Agent 已通过内置浏览器原生 `webmcp` capability 操作本地生产预览；未使用测试 shim、DOM 注入或直接 JavaScript 调用，证据见 `docs/evidence/2026-09-03-codex-agent-webmcp-verification.md`。
 - Undo 历史固定为 20 个已提交前态，Activity 固定为 50 条脱敏截断摘要；二者不跨刷新，最后有效 AppSpec 跨刷新恢复。
 - Reset Demo 在同一 Runtime 内恢复 15 节点 CRM 并清空会话状态；最终三次原生 Chrome 彩排分别为 622ms、533ms、556ms。
-- 当前公共 `main`（`bd2cffc`）已通过全新浅 clone 复现：安装、全量门禁、真实 WebMCP 三轮和构建共 24 秒；最终 AC 矩阵当前严格为 15/18 passed。
+- 最近一次可执行内容候选（`bd2cffc`）已通过全新浅 clone 复现：安装、全量门禁、真实 WebMCP 三轮和构建共 24 秒；其后仅追加证据文档，最终 AC 矩阵当前严格为 15/18 passed。
 - 生产验证入口已准备：`PRODUCTION_URL=<https-url> pnpm test:e2e:production` 会直接对公网来源运行三次原生 WebMCP 完整闭环，不启动本地替代服务；英文逐字旁白已定时到 2 分 20 秒。
 - 用户将当前交付边界明确为本地私有产物；可复现构建器会生成生产包、源码快照、三张原生 Chrome 截图、一张真实 Codex Agent 结果截图、提交材料、逐文件校验和及 1280×720 带旁白 MP4，并且不执行任何公开写入。
 - 2026-09-03 16:02 Asia/Shanghai 通过 Devpost 官方数据接口复核：活动仍开放，截止时间仍为 2026-09-04 04:00 Asia/Shanghai，最新公告没有延期；截止后提交仓库、视频和线上站点均不得再修改。
