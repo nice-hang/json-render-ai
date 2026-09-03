@@ -123,15 +123,16 @@ pnpm build:delivery
 
 The ignored `deliverables/` directory receives a production build, source snapshot, narrated 1280×720 MP4, screenshots, submission documents, checksums, and an outer ZIP. This command does not deploy or upload anything. Package instructions are in [`docs/LOCAL_DELIVERY.md`](docs/LOCAL_DELIVERY.md).
 
-The generated handoff is `deliverables/json-render-ai-webmcp-mvp-2026-09-02.zip`, with a sibling `.sha256` file. Both remain local and intentionally untracked.
+The generated handoff is `deliverables/json-render-ai-webmcp-mvp-2026-09-03.zip`, with a sibling `.sha256` file. Both remain local and intentionally untracked.
 
 ## Current evidence
 
 - Stage 0–4 verification: [`docs/evidence/`](docs/evidence/)
 - Native three-run rehearsal and 1280×720 evidence: [`docs/evidence/2026-09-02-phase-4-verification.md`](docs/evidence/2026-09-02-phase-4-verification.md)
+- Real Codex Agent discovery and mutation evidence: [`docs/evidence/2026-09-03-codex-agent-webmcp-verification.md`](docs/evidence/2026-09-03-codex-agent-webmcp-verification.md)
 - Final acceptance matrix: [`docs/evidence/2026-09-02-mvp-acceptance-matrix.md`](docs/evidence/2026-09-02-mvp-acceptance-matrix.md) — 15/18 passed; external release gates are explicitly open
 - Stage 5 release evidence: [`docs/evidence/2026-09-02-phase-5-verification.md`](docs/evidence/2026-09-02-phase-5-verification.md)
-- Private local-handoff evidence: [`docs/evidence/2026-09-02-local-delivery-verification.md`](docs/evidence/2026-09-02-local-delivery-verification.md)
+- Latest private local-handoff evidence: [`docs/evidence/2026-09-03-local-delivery-verification.md`](docs/evidence/2026-09-03-local-delivery-verification.md)
 
 ## Known limitations
 

@@ -32,7 +32,7 @@ The verified native flow lets a browser Agent read the CRM AppSpec, add a foreca
 
 Codex was the development collaborator across the full MVP cycle. It translated the acceptance criteria into staged implementation gates; built the AppSpec validator, Catalog, Runtime, json-render adapter, WebMCP adapter, inspector, recovery system, and demo UX; ran focused tests after each slice; diagnosed browser and layout failures; exercised Chrome's native WebMCP testing interface; and maintained reproducible evidence for each stage.
 
-Codex also generated and executed the three independent native rehearsal contexts, performed the 1280×720 visual check, prepared the deterministic demo script, scanned release artifacts, and drafted the final submission materials. The source history and `docs/evidence/` directory preserve the concrete verification trail rather than relying on a narrative claim.
+Codex also opened the production preview in a new Codex desktop browser tab, discovered the page's eight native WebMCP tools, and used those tool handles to complete the read/add/update/move/remove/undo/refresh flow without a shim or direct page-script call. It generated and executed three independent native rehearsal contexts, performed the 1280×720 visual check, prepared the deterministic demo script, scanned release artifacts, and drafted the final submission materials. The source history and `docs/evidence/` directory preserve the concrete verification trail rather than relying on a narrative claim.
 
 ## Key Features
 
@@ -89,8 +89,9 @@ The private local handoff contains a narrated 1280×720 MP4 at `demo/json-render
 1. `docs/assets/workspace-overview.png` — deterministic 15-node CRM, all four workspace regions, and native WebMCP registered.
 2. `docs/assets/delete-confirmation.png` — visible stable target, five-component recursive impact, Cancel, and Confirm delete.
 3. `docs/assets/shared-activity.png` — human-updated CRM, Agent-created `$530K` forecast, and source-labelled human/Agent Activity.
+4. `docs/evidence/2026-09-03-codex-webmcp-full-page.png` — the result of a real Codex desktop Agent session, including the added forecast card and visible Agent Activity.
 
-All three are generated reproducibly with `pnpm capture:screenshots` in a native Chrome WebMCP session. The timed, word-for-word English voice-over is in `docs/VIDEO_NARRATION.md`.
+The first three are generated reproducibly with `pnpm capture:screenshots` in a native Chrome WebMCP session. The fourth is captured from the documented real Codex Agent run. The timed, word-for-word English voice-over is in `docs/VIDEO_NARRATION.md`.
 
 ## Submission Readiness Notes
 
@@ -98,6 +99,7 @@ All three are generated reproducibly with `pnpm capture:screenshots` in a native
 - License: the MIT file is public and GitHub license detection was verified logged out.
 - Local quality gates: Stage 0–4 and the Stage 5 clean-clone gate passed, including 48 unit/integration tests, 10 ordinary E2E tests, three native WebMCP rehearsals, and production build.
 - Native demo: three consecutive independent local Chrome runs passed with zero page/console errors.
+- Codex Agent: a real Codex desktop browser session discovered all eight page tools and completed the full mutation, confirmation, Undo, refresh, and visible-audit flow.
 - Official deadline checked on 2026-09-02: September 3, 2026 at 1:00 p.m. Pacific Time.
 - Local video: narrated 1280×720 MP4 prepared and verified in the private handoff.
 - External gaps: public live URL and public YouTube URL.

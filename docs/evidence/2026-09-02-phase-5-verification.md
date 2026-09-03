@@ -1,7 +1,7 @@
 # Stage 5 Verification — Submission Release
 
-- Date: 2026-09-02 (Asia/Shanghai)
-- Candidate artifact commit: `bc289c4` on `main`
+- Last updated: 2026-09-03 (Asia/Shanghai)
+- Latest local artifact source commit: `3ee03a7` on `main`
 - Result: `in_progress` — all authorized local preparation passed; external release gates remain closed
 - Stage 4 prerequisite: [`2026-09-02-phase-4-verification.md`](2026-09-02-phase-4-verification.md)
 
@@ -10,9 +10,9 @@
 - Public English README with value proposition, architecture, standard WebMCP registration, install/test/browser/demo instructions, screenshots, limitations, and MIT license.
 - MIT `LICENSE` and package license metadata.
 - English [`../../devpost-submission.md`](../../devpost-submission.md) draft with no invented public URLs or submission claims.
-- Three truthful native-Chrome screenshots in [`../assets/`](../assets/): workspace overview, rejected deletion confirmation, and shared human/Agent Activity.
+- Three reproducible native-Chrome screenshots in [`../assets/`](../assets/), plus a [real Codex Agent result](2026-09-03-codex-webmcp-full-page.png).
 - Deterministic [`../DEMO_SCRIPT.md`](../DEMO_SCRIPT.md) for an under-three-minute narrated flow.
-- Verified private 1280×720 narrated MP4 and reproducible local ZIP; see [local delivery evidence](2026-09-02-local-delivery-verification.md).
+- Verified private 1280×720 narrated MP4 and reproducible local ZIP; see the latest [local delivery evidence](2026-09-03-local-delivery-verification.md).
 - Dated [official submission checklist](2026-09-02-submission-checklist.md) and [AC-01～AC-18 matrix](2026-09-02-mvp-acceptance-matrix.md).
 
 ## Clean public-clone gate (G5.1)
